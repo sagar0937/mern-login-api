@@ -1,12 +1,49 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import "./Register.css";
 
 const Register = () => {
+  let name, value;
+  let history = useHistory();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    work: "",
+    password: "",
+    cpassword: "",
+  });
+  //onchange function for all input
+  const handleChange = (e) => {
+    e.preventDefault();
+    name = e.target.name;
+    value = e.target.value;
+    setUser({ ...user, [name]: value });
+  };
+  //form submit function
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const { name, email, phone, work, password, cpassword } = user;
+    const response = await fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, phone, work, password, cpassword }),
+    });
+    const data = await response.json();
+    console.log("register", data);
+    if (data.status === 422 || !data) {
+      alert("error");
+    } else {
+      alert("successfully Register User !!");
+      history.push("/login");
+    }
+  };
   return (
     <>
       <div className='signup-form'>
-        <form>
+        <form onSubmit={handleRegister}>
           <h2>Sign Up</h2>
           <p>Please fill in this form to create an account!</p>
           <hr />
@@ -20,10 +57,12 @@ const Register = () => {
               <input
                 type='text'
                 className='form-control'
-                name='username'
+                name='name'
                 placeholder='Username'
                 required='required'
                 autoComplete='false'
+                value={user.name}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -41,6 +80,8 @@ const Register = () => {
                 placeholder='Email Address'
                 required='required'
                 autoComplete='false'
+                value={user.email}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -58,6 +99,8 @@ const Register = () => {
                 placeholder='Phone'
                 required='required'
                 autoComplete='false'
+                value={user.phone}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -71,10 +114,12 @@ const Register = () => {
               <input
                 type='text'
                 className='form-control'
-                name='profession'
+                name='work'
                 placeholder='Profession'
                 required='required'
                 autoComplete='false'
+                value={user.work}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -93,6 +138,8 @@ const Register = () => {
                 placeholder='Password'
                 required='required'
                 autoComplete='false'
+                value={user.password}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -107,10 +154,12 @@ const Register = () => {
               <input
                 type='text'
                 className='form-control'
-                name='confirm_password'
+                name='cpassword'
                 placeholder='Confirm Password'
                 required='required'
                 autoComplete='false'
+                value={user.cpassword}
+                onChange={handleChange}
               />
             </div>
           </div>

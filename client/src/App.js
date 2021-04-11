@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Register from "./components/Register";
-import Signin from "./components/Signin";
+import Login from "./components/Login";
 import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
       <Switch>
         <Route exact path='/' component={Home}></Route>
         <Route path='/about' component={About}></Route>
-        <Route path='/login' component={Signin}></Route>
+        <Route path='/login' component={Login}></Route>
         <Route path='/contact' component={Contact}></Route>
         <Route path='/register' component={Register}></Route>
         <Route component={PageNotFound}></Route>

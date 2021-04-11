@@ -15,7 +15,7 @@ app.use(require("./router/auth"));
 
 const User = require("./model/userschema");
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 // "mongodb+srv://sagar:sagar123@cluster0.oiaht.mongodb.net/mernstack?retryWrites=true&w=majority";
 
 //middleware

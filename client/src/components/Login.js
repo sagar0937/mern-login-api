@@ -1,4 +1,4 @@
-const Signin = () => {
+const Login = () => {
   return (
     <>
       <div className='signup-form'>
@@ -54,4 +54,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Login;
