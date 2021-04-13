@@ -1,8 +1,33 @@
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 const Login = () => {
+  const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onHandleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await response.json();
+    if (response.status === 400 || !data) {
+      alert("Invalid credentials");
+    } else {
+      alert("Login successfull");
+      history.push("/");
+    }
+  };
+
   return (
     <>
       <div className='signup-form'>
-        <form>
+        <form onSubmit={onHandleSubmit}>
           <h2>Sign In</h2>
 
           <hr />
@@ -19,8 +44,10 @@ const Login = () => {
                 className='form-control'
                 name='email'
                 placeholder='Email Address'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required='required'
-                autoComplete='false'
+                autoComplete='off'
               />
             </div>
           </div>
@@ -33,12 +60,14 @@ const Login = () => {
                 </span>
               </div>
               <input
-                type='text'
+                type='password'
                 className='form-control'
                 name='password'
                 placeholder='Password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required='required'
-                autoComplete='false'
+                autoComplete='off'
               />
             </div>
           </div>
