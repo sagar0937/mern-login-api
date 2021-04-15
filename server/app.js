@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 // const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: "./config.env" });
 
@@ -10,6 +11,9 @@ require("./db/connection");
 
 //json format
 app.use(express.json());
+
+//cookie
+app.use(cookieParser());
 //router link
 app.use(require("./router/auth"));
 
@@ -29,11 +33,6 @@ app.get("/", (req, res) => {
 
 app.get("/contact", (req, res) => {
   res.send("contact");
-});
-
-app.get("/about", middleware, (req, res) => {
-  res.send("about");
-  console.log("about");
 });
 
 app.get("/signup", (req, res) => {

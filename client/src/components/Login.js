@@ -6,6 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //onsubmit click
   const onHandleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`/signin`, {
