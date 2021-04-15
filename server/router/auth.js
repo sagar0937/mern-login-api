@@ -90,4 +90,10 @@ router.get("/about", Authenticate, (req, res) => {
   // console.log("about", req.rootUser);
 });
 
+//logout route--to clear cookie/jwttoken
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwttoken", { path: "/" });
+  res.status(200).send("User Logout");
+});
+
 module.exports = router;

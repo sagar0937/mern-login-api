@@ -6,6 +6,7 @@ import Contact from "./components/Contact";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import PageNotFound from "./components/PageNotFound";
+import { Logout } from "./components/Logout";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/login' component={Login}></Route>
         <Route path='/contact' component={Contact}></Route>
         <Route path='/register' component={Register}></Route>
+        <Route path='/logout' component={Logout}></Route>
         <Route component={PageNotFound}></Route>
       </Switch>
     </>
