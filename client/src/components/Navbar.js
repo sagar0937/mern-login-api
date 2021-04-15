@@ -1,7 +1,69 @@
-import React from "react";
+import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NavLink } from "react-router-dom";
+import { userContext } from "../App";
 
+const RenderMenu = () => {
+  //use context
+  const { state, dispatch } = useContext(userContext);
+  if (state) {
+    return (
+      <>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/'>
+            Home <span className='sr-only'>(current)</span>
+          </NavLink>
+        </li>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/about'>
+            About
+          </NavLink>
+        </li>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/contact'>
+            Contact
+          </NavLink>
+        </li>
+
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/logout'>
+            Logout
+          </NavLink>
+        </li>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/'>
+            Home <span className='sr-only'>(current)</span>
+          </NavLink>
+        </li>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/about'>
+            About
+          </NavLink>
+        </li>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/contact'>
+            Contact
+          </NavLink>
+        </li>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/login'>
+            Login
+          </NavLink>
+        </li>
+        <li className='nav-item'>
+          <NavLink className='nav-link' to='/register'>
+            Register
+          </NavLink>
+        </li>
+      </>
+    );
+  }
+};
 const Navbar = () => {
   return (
     <>
@@ -22,36 +84,7 @@ const Navbar = () => {
 
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav ml-auto'>
-            <li className='nav-item active'>
-              <NavLink className='nav-link' to='/'>
-                Home <span className='sr-only'>(current)</span>
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/about'>
-                About
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/contact'>
-                Contact
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/login'>
-                Login
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/register'>
-                Register
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link' to='/logout'>
-                Logout
-              </NavLink>
-            </li>
+            <RenderMenu />
           </ul>
         </div>
       </nav>

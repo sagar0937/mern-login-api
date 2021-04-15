@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { userContext } from "../App";
 
 const Login = () => {
+  //use context
+  const { state, dispatch } = useContext(userContext);
+
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +24,8 @@ const Login = () => {
     if (response.status === 400 || !data) {
       alert("Invalid credentials");
     } else {
+      //dispatach function
+      dispatch({ type: "USER", payload: true });
       alert("Login successfull");
       history.push("/");
     }

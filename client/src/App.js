@@ -7,11 +7,14 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import PageNotFound from "./components/PageNotFound";
 import { Logout } from "./components/Logout";
+import { createContext, useReducer } from "react";
+import { userReducer, initialState } from "./reducer/userReducer";
 
-const App = () => {
+export const userContext = createContext();
+
+const RoutingRender = () => {
   return (
     <>
-      <Navbar />
       <Switch>
         <Route exact path='/' component={Home}></Route>
         <Route path='/about' component={About}></Route>
@@ -21,6 +24,19 @@ const App = () => {
         <Route path='/logout' component={Logout}></Route>
         <Route component={PageNotFound}></Route>
       </Switch>
+    </>
+  );
+};
+const App = () => {
+  //useReducer
+  const [state, dispatch] = useReducer(userReducer, initialState);
+
+  return (
+    <>
+      <userContext.Provider value={{ state, dispatch }}>
+        <Navbar />
+        <RoutingRender />
+      </userContext.Provider>
     </>
   );
 };
