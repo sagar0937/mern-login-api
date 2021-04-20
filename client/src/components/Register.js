@@ -60,7 +60,7 @@ const Register = () => {
                 name='name'
                 placeholder='Username'
                 required='required'
-                autoComplete='false'
+                autoComplete='off'
                 value={user.name}
                 onChange={handleChange}
               />

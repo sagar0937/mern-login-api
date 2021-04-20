@@ -37,8 +37,6 @@ router.post("/register", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-  // res.json({ message: req.body });
 });
 
 //login user
@@ -58,7 +56,6 @@ router.post("/signin", async (req, res) => {
       const isMatch = await bcrypt.compare(password, userLogin.password);
       //token generaton
       const token = await userLogin.generateAuthToken();
-      //   console.log(token);
 
       //cookies to store jwt
       res.cookie("jwttoken", token, {
@@ -73,12 +70,6 @@ router.post("/signin", async (req, res) => {
     } else {
       res.status(400).json({ error: "inValid creditials " });
     }
-    // //check if email exits in database
-    // if (!isMatch) {
-    //   res.status(400).json({ error: "inValid creditials " });
-    // } else {
-    //   res.status(200).json({ message: "login successfully" });
-    // }
   } catch (error) {
     console.log(error);
   }
@@ -88,6 +79,37 @@ router.post("/signin", async (req, res) => {
 router.get("/about", Authenticate, (req, res) => {
   res.send(req.rootUser);
   // console.log("about", req.rootUser);
+});
+
+//contact us page using middleware
+router.get("/getdata", Authenticate, (req, res) => {
+  res.send(req.rootUser);
+});
+
+//contact  us page using middleware for message feild
+router.post("/contact", Authenticate, async (req, res) => {
+  const { name, email, phone, message } = req.body;
+
+  if (!name || !email || !phone || !message) {
+    return res.status(401).json("error plz fill fields");
+  }
+  const messageContact = await User.findOne({ _id: req.id });
+  if (messageContact) {
+    const userMessage = await messageContact.addContactMessage(
+      name,
+      email,
+      phone,
+      message
+    );
+    if (!userMessage) {
+      return res
+        .status(403)
+        .json({ error: "error in contact us page message" });
+    }
+    await messageContact.save();
+    //alert("success");
+    res.status(201).json(userMessage);
+  }
 });
 
 //logout route--to clear cookie/jwttoken

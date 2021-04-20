@@ -16,7 +16,7 @@ const About = () => {
       });
       const data = await response.json();
       console.log(data);
-      if (!data || !response.status == 200) {
+      if (!data || !response.status === 200) {
         throw new Error("no User Login");
       }
     } catch (error) {

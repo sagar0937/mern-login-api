@@ -14,7 +14,7 @@ const Authenticate = async (req, res, next) => {
       _id: verifyToken._id,
       "tokens.token": token,
     });
-    console.log("rootuser", rootUser);
+    // console.log("rootuser", rootUser);
     if (!rootUser) {
       throw new Error("User not Found");
     }
